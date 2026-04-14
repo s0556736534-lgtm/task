@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+//הגדרת Enums
+
+enum GameStatus {
+  Waiting
+  Live
+  Finished
+}
+
+enum ParticipantRole {
+  Player
+  Admin
+}
+
+//models
+
+model User {
+  id    Int               @id @default(autoincrement())
+  games GameParticipant[] // קשר לטבלת המשתתפים
+}
+
+model Game {
+  id           Int               @id @default(autoincrement())
+  status       GameStatus        @default(Waiting)
+  participants GameParticipant[] // קשר לטבלת המשתתפים
+}
+
+model GameParticipant {
+  id      Int             @id @default(autoincrement())
+  score   Int             @default(0)
+  role    ParticipantRole @default(Player)
+
+  // שדות הקשר (Foreign Keys)
+  userId  Int
+  gameId  Int
+
+  // הגדרת היחסים (Relations)
+  user    User @relation(fields: [userId], references: [id])
+  game    Game @relation(fields: [gameId], references: [id])
+
+  // מבטיח שמשתמש לא יירשם לאותו משחק פעמיים 
+  @@unique([userId, gameId])
+}
