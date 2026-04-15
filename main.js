@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const { joinGame } = require('./game.service'); // ייבוא הפונקציה שכתבנו
+const { joinGame } = require('./participation.service'); // ייבוא הפונקציה שכתבנו
 
 const prisma = new PrismaClient();
 
