@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: game_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   # שירות האפליקציה שלך
   app:
@@ -20,7 +20,7 @@ services:
     environment:
       # כתובת החיבור למסד הנתונים (שימי לב ששם המארח הוא 'db')
       DATABASE_URL: "postgresql://user:password@db:5432/game_db?schema=public"
-    # דרישות הרצה קריטיות: הרצת מיגרציות ואז את הקוד [cite: 37, 38]
-    command: >
-      sh -c "npx prisma db push && node main.js"
+    # דרישות הרצה קריטיות: הרצת מיגרציות ואז את הקוד 
+    # השורה למטה היא השינוי - אנחנו מוסיפים המתנה של 5 שניות
+    command: sh -c "sleep 5 && npx prisma db push && node main.js"
       

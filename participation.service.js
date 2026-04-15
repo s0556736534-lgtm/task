@@ -12,7 +12,7 @@ async function joinGame(userId, gameId) {
   }
 
   if (game.status !== 'Waiting') {
-    throw new Error("Cannot join: Game has already started or finished"); // [cite: 20, 23]
+    throw new Error("Cannot join: Game has already started or finished"); 
   }
 
   // 2. בדיקה אם המשתמש כבר רשום למשחק זה
@@ -26,7 +26,7 @@ async function joinGame(userId, gameId) {
   });
 
   if (existingParticipant) {
-    throw new Error("User is already registered for this game"); // [cite: 21, 23]
+    throw new Error("User is already registered for this game"); 
   }
 
   // 3. רישום המשתמש לטבלת GameParticipant בתפקיד Player
@@ -34,7 +34,7 @@ async function joinGame(userId, gameId) {
     data: {
       userId: userId,
       gameId: gameId,
-      role: 'Player', // [cite: 22]
+      role: 'Player', 
     },
   });
 

@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   try {
-    // 1. התחברות למסד הנתונים [cite: 25]
+    // 1. התחברות למסד הנתונים 
     await prisma.$connect();
     console.log("Connected to the database.");
 
-    // 2. יצירת נתוני דמי (Seed) [cite: 26]
+    // 2. יצירת נתוני דמי (Seed)
     // יוצרים משתמש חדש
     const user = await prisma.user.create({
       data: {} // לפי הסכמה הבסיסית שהגדרנו
@@ -24,14 +24,14 @@ async function main() {
 
     console.log(`Created User (ID: ${user.id}) and Game (ID: ${game.id})`);
 
-    // 3. קריאה לפונקציה joinGame עם הנתונים שנוצרו [cite: 27]
+    // 3. קריאה לפונקציה joinGame עם הנתונים שנוצרו 
     await joinGame(user.id, game.id);
 
-    // 4. הדפסת הודעת הצלחה [cite: 28]
+    // 4. הדפסת הודעת הצלחה 
     console.log("Success: User joined game");
 
   } catch (error) {
-    // הדפסת הודעת שגיאה אם הפעולה נכשלה [cite: 29]
+    // הדפסת הודעת שגיאה אם הפעולה נכשלה
     console.error("Error:", error.message);
   } finally {
     // סגירת החיבור למסד הנתונים בסיום
